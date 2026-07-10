@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Login</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Login</h2>
+
+<form id="loginForm">
+
+<input
+type="email"
+id="email"
+placeholder="Email"
+required>
+
+<input
+type="password"
+id="password"
+placeholder="Password"
+required>
+
+<button>
+
+Login
+
+</button>
+
+</form>
+
+<hr>
+
+<div
+id="g_id_onload"
+data-client_id="52033151454-5u18ruov86rtlsdqn7l3e5ivse5fbmfk.apps.googleusercontent.com"
+data-callback="handleGoogleResponse">
+
+</div>
+
+<div class="g_id_signin"></div>
+
+</div>
+
+<script src="js/login.js"></script>
+
+<script src="js/googleAuth.js"></script>
+
+</body>
+
+</html>

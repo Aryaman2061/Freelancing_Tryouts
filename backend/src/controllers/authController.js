@@ -1,13 +1,14 @@
 const jwt = require("jsonwebtoken");
 const { OAuth2Client } = require("google-auth-library");
 const User = require("../models/user_model");
+const bcrypt = require("bcrypt")
  
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
  
 // Helper: sign a JWT for a given user
 const signToken = (user) => {
   return jwt.sign(
-    { id: user._id, email: user.email, name: user.name },
+    { id: user._id, email: user.email },
     process.env.JWT_SECRET,
     { expiresIn: "7d" }
   );
@@ -28,11 +29,13 @@ const signup = async (req, res) => {
     if (existingUser) {
       return res.status(409).json({ message: "An account with this email already exists" });
     }
- 
+    
+    const hashedPassword = await bcrypt.hash(password,10);
+    
     const user = await User.create({
       name,
       email,
-      password,
+      password:hashedPassword,
       authProvider: "local",
     });
  
@@ -102,7 +105,10 @@ const googleAuth = async (req, res) => {
     const { credential } = req.body; // ID token string from the frontend
  
     if (!credential) {
-      return res.status(400).json({ message: "Missing Google credential" });
+        return res.status(400).json({ 
+            success: false,
+            message: "Missing Google credential" 
+        });
     }
  
     // Verify the token with Google
@@ -112,7 +118,8 @@ const googleAuth = async (req, res) => {
     });
  
     const payload = ticket.getPayload();
-    const { sub: googleId, email, name, picture } = payload;
+    const { sub: googleId, email, name, picture, email_verified } = payload;
+    const names = name.split(" ");
  
     // Find existing user by googleId or email
     let user = await User.findOne({ $or: [{ googleId }, { email: email.toLowerCase() }] });
@@ -127,11 +134,14 @@ const googleAuth = async (req, res) => {
       }
     } else {
       user = await User.create({
-        name,
+        firstName: names[0],
+        lastName: names.slice(1).join(" "),
         email,
-        googleId,
-        avatar: picture,
+        password: null,
         authProvider: "google",
+        googleId,
+        emailVerified: email_verified,
+        profilePicture: picture
       });
     }
  
