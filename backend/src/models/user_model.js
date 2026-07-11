@@ -22,33 +22,44 @@ const userSchema = mongoose.Schema({
     },
 
     password: {
-        type: String,
-        required: [true, "password is required"],
-        validate: {
+    type: String,
+    default: null,
+    required: function () {
+        return this.authProvider === "local";
+    },
+    validate: {
         validator: function (value) {
+
+            // Skip validation for Google users
+            if (this.authProvider === "google") {
+                return true;
+            }
+
+            // Local users must have a password
+            if (!value) {
+                throw new Error("Password is required.");
+            }
+
             if (value.length < 8) {
-            throw new Error("Password must be at least 8 characters long.");
+                throw new Error("Password must be at least 8 characters long.");
             }
 
             if (!/[A-Za-z]/.test(value)) {
-            throw new Error("Password must contain at least one letter.");
+                throw new Error("Password must contain at least one letter.");
             }
 
             if (!/\d/.test(value)) {
-            throw new Error("Password must contain at least one number.");
+                throw new Error("Password must contain at least one number.");
             }
 
             if (!/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
-            throw new Error(
-                "Password must contain at least one special character.",
-            );
+                throw new Error("Password must contain at least one special character.");
             }
 
             return true;
-        },
-        },
-        default: null
-    },
+        }
+    }
+},
 
     authProvider: {
             type: String,
