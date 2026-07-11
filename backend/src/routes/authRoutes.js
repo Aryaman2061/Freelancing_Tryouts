@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { signup, login, googleAuth, getMe } = require("../controllers/authController");
+const { signup, login, googleAuth } = require("../controllers/authController");
 const { protect } = require("../middleware/authMiddleware");
  
 router.post("/signup", signup);

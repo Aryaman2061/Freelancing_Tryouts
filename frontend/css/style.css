@@ -1,49 +1,140 @@
-body{
-
-font-family:Arial;
-
-display:flex;
-
-justify-content:center;
-
-margin-top:80px;
-
+/* Color Scheme Design Variables */
+:root {
+    --bg-fallback: #05070c;
+    --card-bg: rgba(13, 17, 28, 0.7);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --card-glow: rgba(255, 255, 255, 0.05);
+    
+    --input-bg: rgba(5, 7, 12, 0.6);
+    --input-border: rgba(255, 255, 255, 0.1);
+    --input-border-focus: rgba(255, 255, 255, 0.3);
+    --input-focus-glow: rgba(255, 255, 255, 0.05);
+    
+    --text-primary: #ffffff;
+    --text-muted: #8a8f98;
+    
+    --button-bg: #090d16;
+    --button-border: rgba(255, 255, 255, 0.15);
+    --button-hover-bg: rgba(255, 255, 255, 0.05);
+    
+    --divider-color: rgba(255, 255, 255, 0.15);
 }
 
-.container{
-
-width:350px;
-
-padding:30px;
-
-box-shadow:0 0 10px gray;
-
-border-radius:10px;
-
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-input{
-
-width:100%;
-
-padding:10px;
-
-margin:10px 0;
-
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-primary);
+    background-color: var(--bg-fallback);
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
-button{
-
-width:100%;
-
-padding:10px;
-
-cursor:pointer;
-
+/* Background Layer setup */
+.spline-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
 }
 
-hr{
+/* Content layer viewport alignment */
+.content-layer {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
 
-margin:25px 0;
+/* Glassmorphic Sign-Up Container */
+.container {
+    width: 100%;
+    max-width: 400px;
+    padding: 40px 30px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 
+                0 0 25px var(--card-glow);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
 
+.container h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 25px;
+    letter-spacing: 0.5px;
+}
+
+/* Input Styles */
+input {
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input::placeholder {
+    color: var(--text-muted);
+}
+
+input:focus {
+    border-color: var(--input-border-focus);
+    box-shadow: 0 0 10px var(--input-focus-glow);
+}
+
+/* Custom Registry Button styling */
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    background-color: var(--button-bg);
+    border: 1px solid var(--button-border);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+button:hover {
+    background-color: var(--button-hover-bg);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* Separation Rules */
+hr {
+    margin: 25px 0;
+    border: none;
+    border-top: 1px solid var(--divider-color);
+}
+
+/* Alignment wrapper for Google Standard Auth Button */
+.google-btn-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }

@@ -18,28 +18,36 @@ const signToken = (user) => {
 // @desc   Register a new user with email + password
 const signup = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
- 
-    if (!name || !email || !password) {
+    console.log("1. Request received");
+
+    const { firstName, lastName, email, password } = req.body;
+    console.log("2. Credential received");
+
+    if (!firstName || !lastName || !email || !password) {
       return res.status(400).json({ message: "Name, email and password are required" });
     }
- 
+    console.log("no error in payload")
+
     const existingUser = await User.findOne({ email: email.toLowerCase() });
 
     if (existingUser) {
       return res.status(409).json({ message: "An account with this email already exists" });
     }
+    console.log("user found")
     
     const hashedPassword = await bcrypt.hash(password,10);
     
     const user = await User.create({
-      name,
+      firstName,
+      lastName,
       email,
       password:hashedPassword,
       authProvider: "local",
     });
+    console.log("user created")
  
     const token = signToken(user);
+    console.log("token created")
  
     res.status(201).json({
       message: "Signup successful",
@@ -129,7 +137,7 @@ const googleAuth = async (req, res) => {
       if (!user.googleId) {
         user.googleId = googleId;
         user.authProvider = "google";
-        if (!user.avatar) user.avatar = picture;
+        if (!user.profilePicture) user.profilePicture = picture;
         await user.save();
       }
     } else {
@@ -140,7 +148,7 @@ const googleAuth = async (req, res) => {
         password: null,
         authProvider: "google",
         googleId,
-        emailVerified: email_verified,
+        verified: email_verified,
         profilePicture: picture
       });
     }
