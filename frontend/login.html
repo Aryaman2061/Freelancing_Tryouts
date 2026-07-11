@@ -1,61 +1,53 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-
     <link rel="stylesheet" href="css/style.css">
-
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.98/build/spline-viewer.js"></script>
 </head>
-
 <body>
+    <div class="spline-background">
+        <spline-viewer loading-anim-type="none" url="https://prod.spline.design/aPXWvz8k07NnGDgq/scene.splinecode"></spline-viewer>
+    </div>
 
-<div class="container">
+    <main class="content-layer">
+        <div class="container">
+            <h2>Login</h2>
 
-<h2>Login</h2>
+            <form id="loginForm">
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Email"
+                    required>
 
-<form id="loginForm">
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Password"
+                    required>
 
-<input
-type="email"
-id="email"
-placeholder="Email"
-required>
+                <button type="submit">Login</button>
+            </form>
 
-<input
-type="password"
-id="password"
-placeholder="Password"
-required>
+            <hr>
 
-<button>
+            <div
+                id="g_id_onload"
+                data-client_id="520331514544-5u18ruov86rtlsdqn7l3e5ivse5fbmfk.apps.googleusercontent.com"
+                data-callback="handleGoogleResponse">
+            </div>
 
-Login
+            <div class="google-btn-wrapper">
+                <div class="g_id_signin" data-type="standard" data-theme="filled_blue" data-size="large" data-width="300"></div>
+            </div>
+        </div>
+    </main>
 
-</button>
-
-</form>
-
-<hr>
-
-<div
-id="g_id_onload"
-data-client_id="520331514544-5u18ruov86rtlsdqn7l3e5ivse5fbmfk.apps.googleusercontent.com"
-data-callback="handleGoogleResponse">
-
-</div>
-
-<div class="g_id_signin"></div>
-
-</div>
-
-<script src="js/login.js"></script>
-
-<script src="js/googleAuth.js"></script>
-
+    <script src="js/login.js"></script>
+    <script src="js/googleAuth.js"></script>
 </body>
-
 </html>
