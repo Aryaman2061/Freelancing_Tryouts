@@ -23,7 +23,9 @@ const userSchema = mongoose.Schema({
 
     password: {
         type: String,
-        required: [true, "password is required"],
+        required: function(){
+            return this.authProvider==="local";
+        },
         validate: {
         validator: function (value) {
             if (value.length < 8) {
