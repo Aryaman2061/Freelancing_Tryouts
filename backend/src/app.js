@@ -11,7 +11,9 @@ app.use(express.json());
 const authRouter = require("./routes/authRoutes")
 const profileRouter = require("./routes/profileRoutes")
 const createJobRouter = require("./routes/createJobRoutes")
+const uploadRoutes = require("./routes/uploadRoutes");
 
+app.use("/api/upload", uploadRoutes);
 app.use('/api/auth',authRouter);
 app.use('/api/profile',profileRouter);
 app.use('/api/job',createJobRouter);
