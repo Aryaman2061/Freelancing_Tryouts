@@ -26,9 +26,10 @@ document
     if (res.ok) {
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
-      window.location.href = "index.html"; // change to wherever signup should redirect
+      window.location.href = "selectRole.html"; // change to wherever signup should redirect
     }
   });
+
 
 // Called automatically by Google's script when someone signs in via the
 // "Sign in with Google" button (see data-callback="handleGoogleResponse" in register.html)

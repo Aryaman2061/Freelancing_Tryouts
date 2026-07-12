@@ -11,9 +11,10 @@ const signToken = (user) => {
     { id: user._id, email: user.email },
     process.env.JWT_SECRET,
     { expiresIn: "7d" }
-  );
+  )
 };
  
+
 // @route  POST /api/auth/signup
 // @desc   Register a new user with email + password
 const signup = async (req, res) => {
@@ -166,20 +167,5 @@ const googleAuth = async (req, res) => {
     });
   }
 };
- 
-// @route  GET /api/auth/me
-// @desc   Get currently logged-in user (requires auth middleware)
-/*const getMe = async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    res.status(200).json({ user });
-  } catch (err) {
-    console.error("GetMe error:", err.message);
-    res.status(500).json({ message: "Server error" });
-  }
-};*/
  
 module.exports = { signup, login, googleAuth };
