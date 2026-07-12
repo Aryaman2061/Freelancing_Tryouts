@@ -19,22 +19,18 @@ const signToken = (user) => {
 // @desc   Register a new user with email + password
 const signup = async (req, res) => {
   try {
-    console.log("1. Request received");
 
     const { firstName, lastName, email, password } = req.body;
-    console.log("2. Credential received");
 
     if (!firstName || !lastName || !email || !password) {
       return res.status(400).json({ message: "Name, email and password are required" });
     }
-    console.log("no error in payload")
 
     const existingUser = await User.findOne({ email: email.toLowerCase() });
 
     if (existingUser) {
       return res.status(409).json({ message: "An account with this email already exists" });
     }
-    console.log("user found")
     
     const hashedPassword = await bcrypt.hash(password,10);
     
@@ -45,10 +41,8 @@ const signup = async (req, res) => {
       password:hashedPassword,
       authProvider: "local",
     });
-    console.log("user created")
  
     const token = signToken(user);
-    console.log("token created")
  
     res.status(201).json({
       message: "Signup successful",
@@ -162,8 +156,15 @@ const googleAuth = async (req, res) => {
       user,
     });
   } catch (err) {
-    console.error("Google auth error:", err.message);
-    res.status(401).json({ message: "Invalid or expired Google credential" });
+    console.error("========== GOOGLE AUTH ERROR ==========");
+    console.error(err);
+    console.error(err.message);
+    console.error("=======================================");
+
+    return res.status(500).json({
+      success: false,
+      error: err.message
+    });
   }
 };
  
