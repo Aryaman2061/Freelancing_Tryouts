@@ -9,12 +9,12 @@ app.use(cors({
 app.use(express.json());
 
 const authRouter = require("./routes/authRoutes")
-const updateProfileRouter = require("./routes/updateProfileRoutes")
-const getProfileRouter = require("./routes/getProfileRouters")
+const profileRouter = require("./routes/profileRoutes")
+const createJobRouter = require("./routes/createJobRoutes")
 
 app.use('/api/auth',authRouter);
-app.use('/api/profile',updateProfileRouter);
-app.use('/api/profile',getProfileRouter);
+app.use('/api/profile',profileRouter);
+app.use('/api/job',createJobRouter);
 
 const connectDB = require('./config/database');
 connectDB();

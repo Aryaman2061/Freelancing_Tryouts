@@ -3,9 +3,9 @@ const User = require("../models/user_model");
 const getProfile = async (req, res) => {
     try {
 
-        const { userId } = req.params;
+        // const { userId } = req.params;
 
-        const user = await User.findById(userId).select("-password");
+        const user = await User.findById(req.user.id).select("-password");
 
         if (!user) {
             return res.status(404).json({
@@ -31,4 +31,6 @@ const getProfile = async (req, res) => {
     }
 };
 
-module.exports = getProfile;
+module.exports = {
+    getProfile
+};

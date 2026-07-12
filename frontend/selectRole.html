@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Role</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.98/build/spline-viewer.js"></script>
+</head>
+<body>
+    <div class="spline-background">
+        <spline-viewer loading-anim-type="none" url="https://prod.spline.design/aPXWvz8k07NnGDgq/scene.splinecode"></spline-viewer>
+    </div>
+
+    <main class="content-layer">
+        <div class="container role-container">
+            <h1>Select Your Role</h1>
+            <p class="subtitle">This choice cannot be changed later.</p>
+
+            <div class="roles">
+                <div class="card" data-role="client">
+                    <h2>Client</h2>
+                    <p>I want to hire freelancers.</p>
+                </div>
+
+                <div class="card" data-role="freelancer">
+                    <h2>Freelancer</h2>
+                    <p>I want to work on projects.</p>
+                </div>
+            </div>
+
+            <button id="continueBtn" disabled>Continue</button>
+        </div>
+    </main>
+
+    <script src="js/selectRole.js"></script>
+</body>
+</html>

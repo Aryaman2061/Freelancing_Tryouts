@@ -19,7 +19,12 @@ window.handleGoogleResponse = async function(response) {
 
     localStorage.setItem("token", data.token);
     localStorage.setItem("user", JSON.stringify(data.user));
-    window.location.href = "index.html"; // change to wherever login should redirect
+
+    if(window.location.pathname.endsWith("register.html")){
+      window.location.href = "selectRole.html"; // change to wherever login should redirect
+    } else {
+      window.location.href = "index.html"; 
+    }
   } catch (err) {
     console.error("Google sign-in error:", err);
     alert("Something went wrong signing in with Google");

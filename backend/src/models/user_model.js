@@ -77,11 +77,16 @@ const userSchema = mongoose.Schema({
         type: Boolean,
         default: false,
     },
+
+    profileCompleted: {
+        type: Boolean,
+        default: false
+    },
     
     role: {
         type: String,
         enum: ["client", "freelancer", "admin"],
-        default: "freelancer",
+        default: null,
     },
     
     //Profile
@@ -121,10 +126,11 @@ const userSchema = mongoose.Schema({
         default: ""
     },
 
-    skills: [{
-        type: String
-    }],
-
+    skills: {
+        type: [String],
+        default: []
+    },
+    
     experienceLevel: {
         type: String,
         enum: ["beginner", "intermediate", "expert"],
@@ -139,6 +145,17 @@ const userSchema = mongoose.Schema({
     languages: [{
         type: String
     }],
+
+    // Client
+    companyName: {
+        type: String,
+        default: ""
+    },
+
+    companyWebsite: {
+        type: String,
+        default: ""
+    },
 
     // Portfolio
     resume: {
