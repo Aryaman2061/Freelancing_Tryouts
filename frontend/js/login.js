@@ -1,4 +1,3 @@
-const API = "http://localhost:3000/api/auth";
 
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -26,7 +25,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
         if (res.ok) {
             localStorage.setItem("token", data.token);
             alert("Login Success");
-            // Optional: window.location.href = "/feed.html";
+            window.location.href = "index.html";
         } else {
             alert(data.message || "Something went wrong during login.");
         }

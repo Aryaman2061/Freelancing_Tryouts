@@ -1,4 +1,6 @@
-window.handleGoogleResponse = async function (response) {
+const API = "http://localhost:3000/api/auth";
+
+window.handleGoogleResponse = async function(response) {
   try {
     const res = await fetch(`${API}/google`, {
       method: "POST",
@@ -17,7 +19,7 @@ window.handleGoogleResponse = async function (response) {
 
     localStorage.setItem("token", data.token);
     localStorage.setItem("user", JSON.stringify(data.user));
-    // window.location.href = "index.html"; // change to wherever login should redirect
+    window.location.href = "index.html"; // change to wherever login should redirect
   } catch (err) {
     console.error("Google sign-in error:", err);
     alert("Something went wrong signing in with Google");
