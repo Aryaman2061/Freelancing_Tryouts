@@ -45,7 +45,7 @@ const signup = async (req, res) => {
     const token = signToken(user);
  
     res.status(201).json({
-      message: "Signup successful",
+      message: "Signup ho gaya , enjoy",
       token,
       user,
     });
@@ -90,7 +90,7 @@ const login = async (req, res) => {
     const token = signToken(user);
  
     res.status(200).json({
-      message: "Login successful",
+      message: "Login ho gaya, jao ash karo",
       token,
       user,
     });
@@ -110,7 +110,7 @@ const googleAuth = async (req, res) => {
     if (!credential) {
         return res.status(400).json({ 
             success: false,
-            message: "Missing Google credential" 
+            message: "Google credential missing hai" 
         });
     }
  

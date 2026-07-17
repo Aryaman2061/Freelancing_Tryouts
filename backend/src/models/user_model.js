@@ -90,26 +90,17 @@ const userSchema = mongoose.Schema({
     },
     
     //Profile
-    profilePicture: {
-        type: String,
-        default: ""
-    },
-
-    coverPicture: {
-        type: String,
-        default: ""
-    },
-
+    
     bio: {
         type: String,
         default: ""
     },
-
+    
     location: {
         type: String,
         default: ""
     },
-
+    
     website: {
         type: String,
         default: ""
@@ -169,7 +160,12 @@ const userSchema = mongoose.Schema({
         image: String,
         projectUrl: String
     }],
+    
 
+    profilePicture: {
+        type: String,
+        default: ""
+    },
     // Statistics
     rating: {
         type: Number,
