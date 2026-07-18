@@ -60,7 +60,6 @@ body {
     padding: 20px;
 }
 
-/* Glassmorphic Panel Layout */
 .container {
     width: 100%;
     max-width: 400px;
@@ -74,17 +73,8 @@ body {
     -webkit-backdrop-filter: blur(12px);
 }
 
-.container h1, 
-.container h2 {
-    font-weight: 600;
-    text-align: center;
-    letter-spacing: 0.5px;
-}
+.container h1 { font-size: 1.8rem; font-weight: 600; text-align: center; margin-bottom: 25px; letter-spacing: 0.5px; }
 
-.container h1 { font-size: 1.8rem; margin-bottom: 8px; }
-.container h2 { font-size: 1.8rem; margin-bottom: 25px; }
-
-/* Dynamic Size Multipliers for Roles & Profiles */
 .container.role-container { max-width: 650px; }
 .container.profile-container { max-width: 680px; margin: 40px 0; }
 
@@ -124,7 +114,6 @@ textarea {
     font-family: inherit;
 }
 
-/* Custom Dropdown Styling */
 select {
     cursor: pointer;
     appearance: none;
@@ -140,21 +129,32 @@ select option { background-color: #0b0f19; color: var(--text-primary); }
 select option:disabled { color: var(--text-muted); }
 
 /* ==========================================
-   4. DYNAMIC PROFILE GRID (FIXED ALIGNMENT)
+   4. PROFILE GRID (EXPLICIT MATRIX TRACKING)
    ========================================== */
 #profileForm {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr; /* Defines 2 equal columns */
     column-gap: 20px;
-    row-gap: 0px; /* Managed precisely via item margins now */
+    row-gap: 0px;
     text-align: left;
 }
 
-/* Force elements to behave predictably by default */
+#profileForm h2 {
+    grid-column: span 2;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 25px 0 15px 0;
+    letter-spacing: 0.5px;
+    border-top: 1px solid var(--divider-color);
+    padding-top: 25px;
+}
+
+/* Default state: Everything takes up full row width */
 #profileForm label,
 #profileForm input, 
 #profileForm select,
-#profileForm textarea {
+#profileForm textarea,
+.profile-picture-wrapper {
     grid-column: span 2;
 }
 
@@ -162,16 +162,36 @@ select option:disabled { color: var(--text-muted); }
     font-size: 0.85rem;
     font-weight: 500;
     color: var(--text-muted);
-    margin-top: 12px;
+    margin-top: 4px;
     margin-bottom: 6px;
     letter-spacing: 0.3px;
     text-transform: uppercase;
 }
 
-#profileForm input, 
-#profileForm select,
-#profileForm textarea {
-    margin-bottom: 12px;
+/* Profile Picture Layout Custom Setup */
+.profile-picture-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.profile-picture {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--card-border);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+#changeProfilePicture {
+    width: auto;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    margin-top: 0;
 }
 
 /* ==========================================
@@ -193,7 +213,7 @@ button {
 
 #profileForm button[type="submit"] {
     grid-column: span 2;
-    margin-top: 16px;
+    margin-top: 20px;
     padding: 14px;
 }
 
@@ -209,7 +229,6 @@ button:disabled:hover { background-color: transparent; transform: none; }
 hr { margin: 25px 0; border: none; border-top: 1px solid var(--divider-color); }
 .subtitle { color: var(--text-muted); font-size: 0.9rem; text-align: center; margin-bottom: 30px; }
 
-/* Role Cards Matrix Layout */
 .roles { display: flex; gap: 20px; margin-bottom: 25px; }
 .card {
     flex: 1; padding: 25px 20px; background: var(--input-bg); border: 1px solid var(--input-border);
@@ -221,39 +240,29 @@ hr { margin: 25px 0; border: none; border-top: 1px solid var(--divider-color); }
 .card:hover { border-color: var(--input-border-focus); transform: translateY(-2px); background: rgba(255, 255, 255, 0.02); }
 .card.selected { border-color: #ffffff; background: rgba(255, 255, 255, 0.05); box-shadow: 0 0 15px rgba(255, 255, 255, 0.1); }
 
-/* Google OAuth Layout Center Wrapper */
 .google-btn-wrapper { display: flex; justify-content: center; width: 100%; }
 
-
 /* ==========================================
-   6. RESPONSIVE LAYOUT CONSTRAINTS
+   6. RESPONSIVE DESKTOP TWO-COLUMN LAYOUT
    ========================================== */
 @media (min-width: 600px) {
-    /* Explicitly lock First Name / Last Name side-by-side */
-    #profileForm label:nth-of-type(1) { grid-column: 1; }  /* First Name Label */
-    #profileForm input:nth-of-type(1) { grid-column: 1; }  /* First Name Input */
+    /* Explicitly force First Name items to the left column */
+    #profileForm label:has(+ #firstName) { grid-column: 1; grid-row: 2; }
+    #profileForm #firstName { grid-column: 1; grid-row: 3; }
     
-    #profileForm label:nth-of-type(2) { grid-column: 2; grid-row: 1; } /* Last Name Label */
-    #profileForm input:nth-of-type(2) { grid-column: 2; grid-row: 2; } /* Last Name Input */
-
-    /* Explicitly lock Phone / Website side-by-side */
-    #profileForm label:nth-of-type(4) { grid-column: 1; }  /* Phone Label */
-    #profileForm input:nth-of-type(3) { grid-column: 1; }  /* Phone Input */
-    
-    #profileForm label:nth-of-type(5) { grid-column: 2; grid-row: 5; } /* Website Label */
-    #profileForm input:nth-of-type(4) { grid-column: 2; grid-row: 6; } /* Website Input */
+    /* Explicitly force Last Name items to the right column on parallel lines */
+    #profileForm label:has(+ #lastName) { grid-column: 2; grid-row: 2; }
+    #profileForm #lastName { grid-column: 2; grid-row: 3; }
 }
 
 @media (max-width: 600px) {
-    #profileForm { 
-        grid-template-columns: 1fr; 
-    }
+    #profileForm { grid-template-columns: 1fr; }
     #profileForm label,
     #profileForm input,
     #profileForm textarea,
     #profileForm select {
         grid-column: span 1 !important;
-        grid-row: auto !important; /* Resets structural desktop positioning overrides on mobile */
+        grid-row: auto !important;
     }
 }
 

@@ -23,7 +23,7 @@ window.handleGoogleResponse = async function(response) {
     if(window.location.pathname.endsWith("register.html")){
       window.location.href = "selectRole.html"; // change to wherever login should redirect
     } else {
-      window.location.href = "index.html"; 
+      window.location.href = "index.html";
     }
   } catch (err) {
     console.error("Google sign-in error:", err);

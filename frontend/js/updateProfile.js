@@ -5,6 +5,7 @@ const token = localStorage.getItem("token");
 const profileForm = document.getElementById("profileForm");
 
 let currentUser = null;
+let selectedProfilePicture = null;
 
 window.addEventListener("DOMContentLoaded", loadProfile);
 
@@ -28,6 +29,8 @@ async function loadProfile() {
         currentUser = data.user;
 
         renderForm(currentUser);
+
+        initializeImageUpload()
 
     }
 
@@ -75,9 +78,52 @@ function renderSaveButton() {
 
 }
 
+function initializeImageUpload(){
+
+    changeProfilePicture.onclick = () => {
+        profilePictureInput.click();
+    };
+
+    profilePictureInput.onchange = (e) => {
+
+        const file = e.target.files[0];
+        if (!file) return;
+
+        selectedProfilePicture = file;
+
+        const reader = new FileReader();
+        reader.onload = () => {
+            profilePreview.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+
+    };
+}
+
 function renderCommonFields(user) {
 
     profileForm.innerHTML += `
+
+        <div class="profile-picture-wrapper">
+            <img
+                id="profilePreview"
+                class="profile-picture"
+                src="${user.profilePicture || '/images/default-avatar.png'}"
+            >
+            <input
+                type="file"
+                id="profilePictureInput"
+                accept="image/*"
+                hidden
+            >
+            <button
+                type="button"
+                id="changeProfilePicture"
+            >
+                Change Photo
+            </button>
+        </div>
+
 
         <label>First Name</label>
         <input
@@ -117,20 +163,6 @@ function renderCommonFields(user) {
             type="text"
             id="location"
             value="${user.location || ""}"
-        >
-
-        <label>Profile Picture</label>
-        <input
-            type="text"
-            id="profilePicture"
-            value="${user.profilePicture || ""}"
-        >
-
-        <label>Cover Picture</label>
-        <input
-            type="text"
-            id="coverPicture"
-            value="${user.coverPicture || ""}"
         >
 
     `;
@@ -247,10 +279,6 @@ async function updateProfile(e) {
 
         location: document.getElementById("location").value.trim(),
 
-        profilePicture: document.getElementById("profilePicture").value.trim(),
-
-        coverPicture: document.getElementById("coverPicture").value.trim()
-
     };
 
     if (currentUser.role === "freelancer") {
@@ -297,6 +325,39 @@ async function updateProfile(e) {
 
     try {
 
+        console.log(selectedProfilePicture);
+        if (selectedProfilePicture) {
+
+            const formData = new FormData();
+
+            formData.append(
+                "profilePicture",
+                selectedProfilePicture
+            );
+
+            const response = await fetch(
+                `${API_URL}/upload/profile-picture`,
+                {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: formData
+                }
+            );
+
+            console.log(response.status);
+            const data = await response.json();
+            console.log(data);
+            if (!response.ok) {
+                console.log(data.message);
+                return;
+            }
+            
+            body.profilePicture = data.image.url;
+
+        }
+
         const response = await fetch(`${API_URL}/profile`, {
 
             method: "PUT",
@@ -333,7 +394,7 @@ async function updateProfile(e) {
 
         console.error(err);
 
-        alert("Something went wrong.");
+        alert("Something went wrong while updating profile bro");
 
     }
 
