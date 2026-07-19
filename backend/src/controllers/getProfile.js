@@ -1,36 +1,35 @@
 const User = require("../models/user_model");
 
-const getProfile = async (req, res) => {
+const getClients = async (req, res) => {
+
     try {
 
-        // const { userId } = req.params;
+        const clients = await User.find({ role: "client" }).select("-password");
 
-        const user = await User.findById(req.user.id).select("-password");
+        res.status(200).json({ success: true, message: "Clients fetched successfully", clients });
 
-        if (!user) {
-            return res.status(404).json({
-                success: false,
-                message: "User not found"
-            });
-        }
-
-        res.status(200).json({
-            success: true,
-            message: "Profile fetched successfully",
-            user
-        });
 
     } catch (error) {
 
-        res.status(500).json({
-            success: false,
-            message: "Server Error",
-            error: error.message
-        });
+        res.status(500).json({ success: false, message: "Server Error", error: error.message });
+    }
+};
 
+const getFreelancers = async (req, res) => {
+
+    try {
+
+        const freelancers = await User.find({ role: "freelancer" }).select("-password");
+
+        res.status(200).json({ success: true, message: "Freelancers fetched successfully", freelancers });
+
+    } catch (error) {
+
+        res.status(500).json({ success: false, message: "Server Error", error: error.message });
     }
 };
 
 module.exports = {
-    getProfile
+    getClients,
+    getFreelancers
 };

@@ -1,19 +1,19 @@
-require("dotenv").config();
+// require("dotenv").config();
 
-const cloudinary = require("./src/config/cloudinary");
+// const cloudinary = require("./src/config/cloudinary");
 
-(async () => {
-    try {
+// (async () => {
+//     try {
 
-        const result = await cloudinary.uploader.upload(
-            "./Rishi Muni.jpg"
-        );
+//         const result = await cloudinary.uploader.upload(
+//             "./Rishi Muni.jpg"
+//         );
 
-        console.log(result);
+//         console.log(result);
 
-    } catch (err) {
+//     } catch (err) {
 
-        console.dir(err, { depth: null });
+//         console.dir(err, { depth: null });
 
-    }
-})();
+//     }
+// })();
