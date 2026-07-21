@@ -1,13 +1,17 @@
 // const API_URL = "http://localhost:3000/api";
 
-// const token = localStorage.getItem("token");
-
 // const profileForm = document.getElementById("profileForm");
 
 // let currentUser = null;
 // let selectedProfilePicture = null;
 
-// window.addEventListener("DOMContentLoaded", loadProfile);
+window.addEventListener("DOMContentLoaded",async ()=>{
+    const data = await checkAuth();
+    if(!data) return;
+    currentUser = data.user;
+    renderForm(currentUser);
+    initializeImageUpload();
+})
 
 // async function loadProfile() {
 
@@ -399,6 +403,9 @@
 //     }
 
 // }
+
+
+
 
 //---------------new one from here -----------
 

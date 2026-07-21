@@ -1,8 +1,8 @@
-const API = "http://localhost:3000/api/auth";
+const API_URL = "http://localhost:3000/api/auth";
 
 window.handleGoogleResponse = async function(response) {
   try {
-    const res = await fetch(`${API}/google`, {
+    const res = await fetch(`${API_URL}/google`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -20,10 +20,12 @@ window.handleGoogleResponse = async function(response) {
     localStorage.setItem("token", data.token);
     localStorage.setItem("user", JSON.stringify(data.user));
 
-    if(window.location.pathname.endsWith("register.html")){
+    console.log(data.userExisted);
+
+    if(!data.user.role){
       window.location.href = "selectRole.html"; // change to wherever login should redirect
     } else {
-      window.location.href = "index.html";
+      window.location.href = "home.html";
     }
   } catch (err) {
     console.error("Google sign-in error:", err);

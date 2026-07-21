@@ -271,6 +271,178 @@ hr { margin: 25px 0; border: none; border-top: 1px solid var(--divider-color); }
 }
 
 /* ==========================================
+   7. LANDING PAGE & NAVBAR STYLES
+   ========================================== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--card-border);
+    background: rgba(11, 15, 25, 0.4);
+}
+
+.logo {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--text-primary);
+}
+
+.logo span {
+    color: #a855f7; /* Subtle purple accent to match the stream theme */
+}
+
+.nav-actions {
+    display: flex;
+    gap: 12px;
+}
+
+/* Button Variants */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: var(--text-primary);
+    color: #05070c;
+    border: 1px solid var(--text-primary);
+}
+
+.btn-primary:hover {
+    background-color: #e2e8f0;
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background-color: var(--button-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--button-border);
+}
+
+.btn-secondary:hover {
+    background-color: var(--button-hover-bg);
+    border-color: var(--input-border-focus);
+    transform: translateY(-1px);
+}
+
+.btn-large {
+    padding: 14px 28px;
+    font-size: 1rem;
+}
+
+/* Hero Section */
+.landing-content {
+    padding-top: 120px; /* Offset for navbar */
+    padding-bottom: 60px;
+}
+
+.hero-container {
+    max-width: 900px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.badge {
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+}
+
+.hero-container h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-description {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    max-width: 620px;
+    line-height: 1.6;
+    margin-bottom: 35px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 60px;
+}
+
+/* Landing Features Grid */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+.feature-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 25px 20px;
+    text-align: left;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.feature-card:hover {
+    border-color: var(--input-border-focus);
+    transform: translateY(-4px);
+}
+
+.feature-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.feature-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .navbar { padding: 15px 20px; }
+    .hero-container h1 { font-size: 2.4rem; }
+    .features-grid { grid-template-columns: 1fr; }
+    .hero-buttons { flex-direction: column; width: 100%; max-width: 300px; }
+    .btn-large { width: 100%; }
+}
+
+/* ==========================================
    7. FILE UPLOADS (PROFILE IMAGE / RESUME / PORTFOLIO)
    ========================================== */
 

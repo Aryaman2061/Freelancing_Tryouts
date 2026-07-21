@@ -1,4 +1,6 @@
 
+
+
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -12,7 +14,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     };
 
     try {
-        const res = await fetch(`${API}/login`, {
+        const res = await fetch(`${API_URL}/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -24,8 +26,8 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 
         if (res.ok) {
             localStorage.setItem("token", data.token);
-            alert("Login Success");
-            window.location.href = "index.html";
+            localStorage.setItem("user", JSON.stringify(data.user));
+            window.location.href = "home.html";
         } else {
             alert(data.message || "Something went wrong during login.");
         }

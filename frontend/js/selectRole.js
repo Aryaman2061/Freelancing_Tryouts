@@ -1,9 +1,18 @@
-const API = "http://localhost:3000/api";
-
 const cards = document.querySelectorAll(".card");
 const button = document.getElementById("continueBtn");
 
 let selectedRole = null;
+
+window.addEventListener("DOMContentLoaded",async ()=>{
+    //checks if user present or not
+    const data = await checkAuth();
+    if(!data) return;
+    //checks if role already selected
+    if(data.user.role){
+        window.location.href="home.html";
+        return;
+    }
+})
 
 cards.forEach(card => {
 
@@ -26,7 +35,7 @@ button.addEventListener("click", async () => {
     try {
         const token = localStorage.getItem("token");
     
-        const response = await fetch(`${API}/profile/selectRole`, {
+        const response = await fetch(`${API_URL}/profile/selectRole`, {
     
             method: "PUT",
     
@@ -44,18 +53,19 @@ button.addEventListener("click", async () => {
             })
     
         });
-    
+        
         const data = await response.json();
-    
-        alert(data.message);
-    
-        if (response.ok) {
 
+        if(!response.ok){
+            console.log(data)
+            alert(data.message);
+            window.location.href="login.html";
+        } else{
             localStorage.setItem("token", data.token);
             window.location.href = "updateProfile.html";
-    
         }
-        
+    
+
     } catch (error) {
         console.log("error in updating role");
         console.log("fahhhhhhhhhhhh")
