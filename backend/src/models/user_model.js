@@ -62,9 +62,9 @@ const userSchema = mongoose.Schema({
     },
 
     authProvider: {
-            type: String,
-            enum: ["local", "google"],
-            default: "local"
+        type: String,
+        enum: ["local", "google"],
+        default: "local"
     },
 
     googleId: {
@@ -72,7 +72,7 @@ const userSchema = mongoose.Schema({
         default: null
     },
 
-    
+
     verified: {
         type: Boolean,
         default: false,
@@ -82,25 +82,25 @@ const userSchema = mongoose.Schema({
         type: Boolean,
         default: false
     },
-    
+
     role: {
         type: String,
         enum: ["client", "freelancer", "admin"],
         default: null,
     },
-    
+
     //Profile
-    
+
     bio: {
         type: String,
         default: ""
     },
-    
+
     location: {
         type: String,
         default: ""
     },
-    
+
     website: {
         type: String,
         default: ""
@@ -121,7 +121,7 @@ const userSchema = mongoose.Schema({
         type: [String],
         default: []
     },
-    
+
     experienceLevel: {
         type: String,
         enum: ["beginner", "intermediate", "expert"],
@@ -148,19 +148,49 @@ const userSchema = mongoose.Schema({
         default: ""
     },
 
-    // Portfolio
+
     resume: {
-        type: String,
-        default: ""
+        url: {
+            type: String,
+            default: ""
+        },
+        public_id: {
+            type: String,
+            default: ""
+        }
     },
 
-    portfolio: [{
-        title: String,
-        description: String,
-        image: String,
-        projectUrl: String
-    }],
-    
+    portfolio: [
+        {
+            title: {
+                type: String,
+                required: true
+            },
+            description: {
+                type: String,
+                default: ""
+            },
+            image: {
+                type: String,
+                default: ""
+            },
+            document: {
+                url: {
+                    type: String,
+                    default: ""
+                },
+                public_id: {
+                    type: String,
+                    default: ""
+                }
+            },
+            projectUrl: {
+                type: String,
+                default: ""
+            }
+        }
+    ],
+
 
     profilePicture: {
         type: String,
@@ -214,8 +244,8 @@ const userSchema = mongoose.Schema({
     }
 
 },
-{
-    timestamps: true
-});
+    {
+        timestamps: true
+    });
 
 module.exports = mongoose.model("User", userSchema);

@@ -127,8 +127,11 @@ const googleAuth = async (req, res) => {
     // Find existing user by googleId or email
     let user = await User.findOne({ $or: [{ googleId }, { email: email.toLowerCase() }] });
  
+    let userExisted = false;
+
     if (user) {
       // If they previously signed up locally with the same email, link the account
+      userExisted=true;
       if (!user.googleId) {
         user.googleId = googleId;
         user.authProvider = "google";
@@ -154,6 +157,7 @@ const googleAuth = async (req, res) => {
       message: "Google authentication successful",
       token,
       user,
+      userExisted
     });
   } catch (err) {
     console.error("========== GOOGLE AUTH ERROR ==========");
