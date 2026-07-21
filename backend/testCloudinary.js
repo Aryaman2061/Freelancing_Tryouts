@@ -1,19 +1,9 @@
 require("dotenv").config();
 
-const cloudinary = require("./src/config/cloudinary");
+const https = require("https");
 
-(async () => {
-    try {
-
-        const result = await cloudinary.uploader.upload(
-            "./Rishi Muni.jpg"
-        );
-
-        console.log(result);
-
-    } catch (err) {
-
-        console.dir(err, { depth: null });
-
-    }
-})();
+https.get("https://api.cloudinary.com", (res) => {
+    console.log("Status:", res.statusCode);
+}).on("error", (err) => {
+    console.error(err);
+});
